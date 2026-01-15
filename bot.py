@@ -17,6 +17,8 @@ MISSED_QUESTIONS_FILE = 'missed_questions.txt'
 # Replace with the ID of your specific questions channel
 QUESTIONS_CHANNEL_ID = 1449084904343339168 
 
+ADMIN_CHANNEL_MISSING_ANSWERS_ID = 1461483376195145758
+
 # Replace with YOUR Discord User ID (Integer) so only you can use !reload
 # Turn on Developer Mode in Discord -> Right Click your Name -> Copy User ID
 ADMIN_USER_ID = 545298092048646144 
@@ -138,11 +140,20 @@ async def on_message(message):
                 response_text = response.text.strip()
                 
                 # --- SILENCE CHECK ---
-                if response_text == "SILENCE":
-                    print("Answer not found. Logging to missed_questions.txt")
-                    with open(MISSED_QUESTIONS_FILE, "a", encoding="utf-8") as log:
-                        log.write(f"[{message.created_at}] {message.author.name}: {message.content}\n")
-                    return 
+                 if response_text == "SILENCE":
+                    print(f"Missed question from {message.author.name}")
+                    
+                    # 1. Don't reply to the user (Stay Silent)
+                    
+                    # 2. Send the missed question to the ADMIN CHANNEL instead of a file
+                    admin_channel = client_discord.get_channel(ADMIN_CHANNEL_MISSING_ANSWERS_ID)
+                    if admin_channel:
+                        await admin_channel.send(
+                            f"⚠️ **Missed Question**\n"
+                            f"**User:** {message.author.name}\n"
+                            f"**Question:** {message.content}"
+                        )
+                    return
 
                 # --- SENDING THE MESSAGE (PLAIN TEXT) ---
                 # Check for length limit (2000 chars)
@@ -167,3 +178,4 @@ keep_alive() # <--- ADD THIS
 
 
 client_discord.run(DISCORD_TOKEN)
+
