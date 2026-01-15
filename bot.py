@@ -54,7 +54,6 @@ intents.message_content = True
 client_discord = discord.Client(intents=intents)
 
 # Keep Alive (For Render)
-# Only needed if you added keep_alive.py and requirements.txt contains flask
 try:
     from keep_alive import keep_alive
     keep_alive()
@@ -123,46 +122,64 @@ async def on_message(message):
                 f"User Question: {message.content}"
             )
 
-            response = client_genai.models.generate_content(
-                model=MODEL_NAME,
-                contents=prompt
-            )
+            # --- RETRY LOGIC (ADDED HERE) ---
+            response_text = None
             
-            if response.text:
-                response_text = response.text.strip()
-                
-                # --- SILENCE CHECK (The part you fixed) ---
-                if response_text == "SILENCE":
-                    print(f"Missed question from {message.author.name}")
+            # Try 3 times to get an answer
+            for attempt in range(3):
+                try:
+                    response = client_genai.models.generate_content(
+                        model=MODEL_NAME,
+                        contents=prompt
+                    )
                     
-                    # 1. Stay Silent to the user
-                    
-                    # 2. Send to Admin Channel
-                    # We use the new variable here
-                    admin_channel = client_discord.get_channel(ADMIN_CHANNEL_MISSING_ANSWERS_ID)
-                    if admin_channel:
-                        await admin_channel.send(
-                            f"⚠️ **Missed Question**\n"
-                            f"**User:** {message.author.name}\n"
-                            f"**Question:** {message.content}"
-                        )
-                    return 
+                    if response.text:
+                        response_text = response.text.strip()
+                        break # Success! Exit the loop
 
-                # --- SENDING MESSAGE ---
-                if len(response_text) > 2000:
-                    parts = [response_text[i:i+1900] for i in range(0, len(response_text), 1900)]
-                    for index, part in enumerate(parts):
-                        if index == 0:
-                            await message.reply(part)
-                        else:
-                            await message.channel.send(part)
-                else:
-                    await message.reply(response_text)
+                except Exception as api_error:
+                    # Check if error is Rate Limit (429)
+                    if "429" in str(api_error):
+                        print(f"⚠️ Rate limit hit. Waiting 5 seconds... (Attempt {attempt+1}/3)")
+                        await asyncio.sleep(5) # Wait
+                    else:
+                        print(f"❌ API Error: {api_error}")
+                        break # Stop if it's a different error
+
+            # If failed after 3 tries, stop
+            if not response_text:
+                print("Failed to get answer after retries.")
+                return
+
+            # --- SILENCE CHECK ---
+            if response_text == "SILENCE":
+                print(f"Missed question from {message.author.name}")
+                
+                admin_channel = client_discord.get_channel(ADMIN_CHANNEL_MISSING_ANSWERS_ID)
+                if admin_channel:
+                    await admin_channel.send(
+                        f"⚠️ **Missed Question**\n"
+                        f"**User:** {message.author.name}\n"
+                        f"**Question:** {message.content}"
+                    )
+                return 
+
+            # --- SENDING MESSAGE ---
+            if len(response_text) > 2000:
+                parts = [response_text[i:i+1900] for i in range(0, len(response_text), 1900)]
+                for index, part in enumerate(parts):
+                    if index == 0:
+                        await message.reply(part)
+                    else:
+                        await message.channel.send(part)
+            else:
+                await message.reply(response_text)
 
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"Critical Bot Error: {e}")
 
 client_discord.run(DISCORD_TOKEN)
+
 
 
 
