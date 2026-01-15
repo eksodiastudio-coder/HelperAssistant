@@ -1,5 +1,6 @@
 import discord
 from google import genai
+from dotenv import load_dotenv
 import os
 import asyncio
 from keep_alive import keep_alive # <--- ADD THIS
@@ -163,5 +164,6 @@ async def on_message(message):
         except Exception as e:
             print(f"Error: {e}")
 keep_alive() # <--- ADD THIS
+
 
 client_discord.run(DISCORD_TOKEN)
