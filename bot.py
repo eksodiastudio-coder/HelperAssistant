@@ -25,7 +25,7 @@ ADMIN_USER_ID = 545298092048646144
 
 ADMIN_CHANNEL_ID = 1453869127180746843
 
-MODEL_NAME = "gemini-2.0-flash-lite-preview-02-05"
+MODEL_NAME = "gemini-flash-lite-latest"
 # Setup Google GenAI Client
 client_genai = genai.Client(api_key=GOOGLE_API_KEY)
 
@@ -115,7 +115,7 @@ async def on_message(message):
                 f"INSTRUCTIONS FOR AI:\n"
                 f"1. **Match Concepts, Not Just Words:** If the user asks about a specific example (e.g., 'YouTube') and the rules mention a general category (e.g., 'No Advertising'), you MUST apply the rule and answer.\n"
                 f"2. **Be Direct:** Answer clearly based on the text provided.\n"
-                f"3. **When to use SILENCE:** Only reply 'SILENCE' if the user's question is completely unrelated to anything in the Knowledge Base. If you are 60% sure, give the answer.\n"
+                f"3. **When to use SILENCE:** Only reply 'SILENCE' if the question is 100% unrelated (like asking about cooking or politics). If the question is even slightly related to the server, YOU MUST ANSWER.\n"
                 f"4. Do NOT use markdown headers like #.\n\n"
 
                 f"--- KNOWLEDGE BASE ---\n{knowledge_base}\n\n"
@@ -163,5 +163,6 @@ async def on_message(message):
             print(f"Error: {e}")
 
 client_discord.run(DISCORD_TOKEN)
+
 
 
