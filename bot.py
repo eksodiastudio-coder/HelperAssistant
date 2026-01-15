@@ -26,11 +26,6 @@ ADMIN_USER_ID = 545298092048646144
 ADMIN_CHANNEL_ID = 1453869127180746843
 
 MODEL_NAME = "gemini-flash-lite-latest"
-# =================================================
-
-if not DISCORD_TOKEN or not GOOGLE_API_KEY:
-    raise ValueError("Error: DISCORD_TOKEN or GOOGLE_API_KEY is missing from environment variables.")
-
 # Setup Google GenAI Client
 client_genai = genai.Client(api_key=GOOGLE_API_KEY)
 
@@ -58,40 +53,39 @@ intents = discord.Intents.default()
 intents.message_content = True
 client_discord = discord.Client(intents=intents)
 
+# Keep Alive (For Render)
+# Only needed if you added keep_alive.py and requirements.txt contains flask
+try:
+    from keep_alive import keep_alive
+    keep_alive()
+except ImportError:
+    print("Keep alive module not found. Skipping web server.")
+
 @client_discord.event
 async def on_ready():
     print(f'Logged in as {client_discord.user}')
     print(f"Questions Channel: {QUESTIONS_CHANNEL_ID}")
-    print(f"Admin Channel: {ADMIN_CHANNEL_ID}")
+    print(f"Missed Qs Channel: {ADMIN_CHANNEL_MISSING_ANSWERS_ID}")
 
 @client_discord.event
 async def on_message(message):
-    # Ignore own messages
     if message.author == client_discord.user:
         return
 
-    # =======================================================
-    # LOGIC 1: ADMIN COMMANDS (Check this FIRST)
-    # =======================================================
+    # 1. ADMIN COMMANDS (!reload)
     if message.content == "!reload":
-        # Check if it is the correct channel AND the correct user
         if message.channel.id == ADMIN_CHANNEL_ID and message.author.id == ADMIN_USER_ID:
             success = load_knowledge()
             if success:
                 await message.reply("✅ Knowledge base reloaded successfully!")
             else:
                 await message.reply("❌ Error: Could not find the knowledge file.")
-        return # Stop processing here if it was a command (even if unauthorized)
+        return 
 
-    # =======================================================
-    # LOGIC 2: PUBLIC QUESTIONS (Check this SECOND)
-    # =======================================================
-    
-    # If the message is NOT in the questions channel, stop immediately.
+    # 2. PUBLIC QUESTIONS
     if message.channel.id != QUESTIONS_CHANNEL_ID:
         return
 
-    # Check triggers: Ends with "?" OR Bot is Mentioned
     is_question = message.content.strip().endswith("?")
     is_mentioned = client_discord.user in message.mentions
 
@@ -105,8 +99,7 @@ async def on_message(message):
 
     async with message.channel.typing():
         try:
-            # --- CONTEXT AWARENESS ---
-            # Fetch last 5 messages for context
+            # Context
             history_buffer = []
             async for msg in message.channel.history(limit=5):
                 clean_content = msg.clean_content 
@@ -115,17 +108,14 @@ async def on_message(message):
             history_buffer.reverse()
             conversation_text = "\n".join(history_buffer)
 
-            # --- PROMPT ---
             prompt = (
                 f"You are a helpful and polite assistant for a Discord server. "
                 f"Your goal is to answer the user's question based strictly on the 'Knowledge Base'.\n\n"
-                
                 f"INSTRUCTIONS:\n"
                 f"1. Use the 'Conversation History' to understand context.\n"
                 f"2. If the answer is found in the Knowledge Base, answer clearly.\n"
                 f"3. If the answer is NOT in the Knowledge Base, reply with exactly 'SILENCE'.\n"
-                f"4. Do NOT use markdown headers (like # or ##). Just plain text.\n\n"
-
+                f"4. Do NOT use markdown headers.\n\n"
                 f"--- KNOWLEDGE BASE ---\n{knowledge_base}\n\n"
                 f"--- CONVERSATION HISTORY ---\n{conversation_text}\n\n"
                 f"Current User Question: {message.content}"
@@ -139,13 +129,14 @@ async def on_message(message):
             if response.text:
                 response_text = response.text.strip()
                 
-                # --- SILENCE CHECK ---
-                 if response_text == "SILENCE":
+                # --- SILENCE CHECK (The part you fixed) ---
+                if response_text == "SILENCE":
                     print(f"Missed question from {message.author.name}")
                     
-                    # 1. Don't reply to the user (Stay Silent)
+                    # 1. Stay Silent to the user
                     
-                    # 2. Send the missed question to the ADMIN CHANNEL instead of a file
+                    # 2. Send to Admin Channel
+                    # We use the new variable here
                     admin_channel = client_discord.get_channel(ADMIN_CHANNEL_MISSING_ANSWERS_ID)
                     if admin_channel:
                         await admin_channel.send(
@@ -153,29 +144,21 @@ async def on_message(message):
                             f"**User:** {message.author.name}\n"
                             f"**Question:** {message.content}"
                         )
-                    return
+                    return 
 
-                # --- SENDING THE MESSAGE (PLAIN TEXT) ---
-                # Check for length limit (2000 chars)
+                # --- SENDING MESSAGE ---
                 if len(response_text) > 2000:
-                    # Split into chunks of 1900 to be safe
                     parts = [response_text[i:i+1900] for i in range(0, len(response_text), 1900)]
-                    
                     for index, part in enumerate(parts):
                         if index == 0:
-                            # Reply to the user for the first part
                             await message.reply(part)
                         else:
-                            # Send the rest as normal messages
                             await message.channel.send(part)
                 else:
-                    # Short message: Just reply normally
                     await message.reply(response_text)
 
         except Exception as e:
             print(f"Error: {e}")
-keep_alive() # <--- ADD THIS
-
 
 client_discord.run(DISCORD_TOKEN)
 
