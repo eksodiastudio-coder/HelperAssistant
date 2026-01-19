@@ -138,6 +138,12 @@ In this channel, members can view the perks of boosters. The perks are: ## 🌟 
 
 Our Appeal Center:
 
+How can I report a player?
+You may report a player by joining our Appeal Center and opening a ticket: https://discord.gg/yyDcmvh84m
+
+How can I join the Appeal Center?
+You may join the Appeal Center by this link: https://discord.gg/yyDcmvh84m
+
 We recently moved all of our tickets to our new appeal center server. In this server, members can create three different types of tickets. 
 
 Server Support - For issues related to the server (mutes, warning, ban or reporting a member).
@@ -552,3 +558,4 @@ Every decision is carefully planned by the staff team. There is a reason and evi
 Specific rules for applications/giveaways:
 
 Members are allowed to gain pages or messages while an application is ongoing, but for giveaways, the members are required to have a set amount of messages before joining the giveaway. Breaking the rules of giveaways will result in a giveaway blacklist. People can only fill out applications once, unless there's a mistake, in which case they should open a ticket in the appeal server. Members should read requirements for giveaways and applications before applying or joining giveaways. 
+
