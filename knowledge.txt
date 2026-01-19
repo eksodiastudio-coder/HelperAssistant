@@ -1,39 +1,554 @@
-Project Kinesis: Guidelines and TOS
-Please note that all rules are subject to change depending on the severity of your case and the context surrounding it. Moderators reserve the right to take into account their own judgment (without bias) during moderation.
-1 - CORRECT CONDUCT AND COMMON SENSE
-The perpetuation of hateful behaviour against members will not be tolerated. Pay attention to the way you behave and behave towards other members. Avoid controversial topics and do not engage in or instigate drama as this will result in moderation. This server is in English, Portuguese and Spanish. Speaking other languages can result in moderation. - Do not argue with staff, this has been an important issue that will be resolved, if you feel you have been treated unfairly by a member of staff, make a formal complaint in a note.
-Refrain from using staff report tickets as jokes or for fun or it will end up in a warning.
-2 - DISCRIMINATION
-Any forms of discrimination are not tolerated, including, but not limited to, racism, ableism, transphobia, homophobia and racism. This will lead to a ban. Thus, openly discriminatory insults are also not permitted in any context (claimed) and will result in a ban. - Regarding the use of slurs in social media posts, if the post is directly drawing the attention of viewers/readers to the slur used, you will be banned for ignoring slurs.
-3 - SPAM AND FLOOD
-It is not permitted to spam or flood messages in our chats through any form of content. If there is a constant flood of messages, an administrator will implement a slow mode. I recommend that you talk in full sentences and not send a word per message since that counts as spam and will result in a warning.
-4 - NSFW
-Any type of NSFW content in any form is prohibited
-Failure to comply will result in moderation based on the severity of the content. NSFW words such as male and female genitalia will result in a warning, if you get caught doing it again it will result in a 30 day ban.
-5 - DOXXING/MALICIOUS LINKS
-Sending malicious links in chat (phishing links or cookie registration) will result in a permanent ban. Share or steal other members' private information such as:
-Government reveals your face, home address, and full name. will result in a permanent ban. Using another members face or promoting will also result in a permanent ban.
-6 - STAFF IMPERSONATION
-Personification of staff can confuse people and cause unrest. Members reserve the right to inform people when they are violating the rules.
-7 - ALTERNATIVE ACCOUNTS
-Alternative Accounts are prohibited due to the possibility of compromising the moderation process. Exceptions may be made by the Directors+ if your main account has been compromised, if so, please approach them in DMs
-8 - ADVERTISING
-All forms of advertising are prohibited, from TikTok links to server links, sending them will get you instantly banned for 30 days.
-9 - COOPERATION WITH STAFF
-Team members reserve the right to take their own judgment into account when handling a ticket and are not limited by these rules. Please do not argue with our team of staff, they are here to help. If you have a problem, open a ticket and file a formal complaint. If the member who opened the ticket keeps arguing with the staff after being told not to it will result in a warning.
-10 - MISUSE OF CHANNELS
-Improper use of the channel will result in moderation.
-Please read pins and channel descriptions before interacting with a channel. If you're caught doing this it will result in a warning, if you keep on misusing the channel it will result in a 5 hour mute.
-11 - PLAGIARISM
-Any form of plagiarism is not tolerable. If you post something in Creations that showcases your work and someone else's, please give credit to others involved or clearly state what is and isn't your work
+Game info:
+
+Movers:
+Bone break and leap at level 5
+Levitation at level 10
+Shockwave at level 15
+Pull at level 20
+Shield at level 25
+That’s it for now
+
+To get levels faster, you need to play the game more often and get kills. Getting kills is the fastest way to level up. Also, 2x energy gamepass helps get more kills and 2x XP gamepass gives you more XP per kill, so therefore you need less kills to level up. 
+
+Early access info: 
+Hey everyone — quick (but important) heads-up about **Early Access gamepasses** and how we’re rolling out new classes.
+
+### Why Early Access will be **by phases**, and only **2 classes per phase**
+
+I’m going to release classes in **phases**, and in each phase there will be **only 2 classes available in Early Access** through a gamepass. When a new phase drops, it comes with a **new Early Access gamepass** for that phase’s classes.
+
+Why do it like this?
+
+If I made **one single “Early Access for every future class”** pass, it would be cool for a moment… and then it would basically kill the game’s ability to fund itself long-term. After a while, I’d stop making money from new class releases, and that’s bad for development, updates, servers, assets, everything.
+
+This phased model is the most realistic way for me to:
+
+* **keep the game funded over time**
+* **keep shipping new classes consistently**
+* and still keep things fair, because…
+
+### Yes: classes will be **FREE after Early Access**
+
+Early Access is **temporary**. After the Early Access period ends, the classes from that phase will become **free for everyone**.
+So you’re not paying to “own the class forever” — you’re paying to **play it earlier** and support the game while it’s being built.
+
+### Anti Pay-to-Win rule for upcoming phases
+
+Also, starting in the next phases (and this already includes the **new power from Phase 1**), the **level cap will be Level 10 during Early Access**.
+
+That’s on purpose:
+
+* to avoid **pay-to-win**
+* to keep the fights fair
+* and to make sure Early Access feels like **early testing + hype**, not “buy power and delete everyone”
+
+---
+
+If you buy Early Access, you’re basically saying: “I want to support development and get in early.”
+If you don’t, you’ll still get the classes later for free — no FOMO trap.
+
+More details soon when Phase 1 drops. Appreciate you all for real.
+
+
+Discord Project Evolvers channel descriptions:
+
+Channel 1: Welcome channel
+In this channel, people who joined the server get welcomed by our bot. It is not permissible to speak on this channel.
+
+Channel 2: rules
+This channel contains all the rules of the server. Every member should read over the rules found in this channel.
+
+Channel 3: self roles
+This channel is currently in development. Once it is finished, members will be allowed to give themselves roles and pings.
+
+Channel 4: verification
+In this channel, all members are required to verify through BloxLink to get the verified role. If members are unable to verify, they should either speak with HR+ or open a ticket in our appeal server.
+
+Channel 5: important-links
+In this channel, members can find links to our roblox game “project Evolvers”, our appeal center, and our roblox group. 
+
+Channel 6; Announcement
+In this channel, only HR+ is allowed to send messages. Regular members can view messages. In this channel, the owner and the HR send announcements related to the game, or just typical server announcements. All the applications, including staff applications and tester applications will be posted in this channel. If members ask where or when applications release, tell them that the applications release in this channel and to keep an eye out for such announcements.
+
+Channel 7: reveals
+In this channel, reveals about the game will be posted. Reveals for game updates will be posted here by our owner “yenn”
+
+Channel 8: update
+When game updates are released, people will be notified in this channel. This channel will include descriptions of new updates. 
+
+Channel 9: polls
+In this channel, the HR+ or the owner will make polls to ask general members to vote on polls regarding the game or the discord server. 
+
+Channel 10: poll answer
+If the polls created in the poll channel require people discussing with the owner or the HR, members can talk in this channel to speak on the polls.
+
+Channel 11; hall of fame
+In this channel, only the staff team can speak. This channel is dedicated for any type of content or media that one may feel needs to be honored, or any type of content that is exemplary for the community.
+
+Channel 12: hall of shame
+In this channel, only the staff can speak. This channel is dedicated for any type of content or media that people might find inconvenient, or just have a negative connotation for.
+
+Channel 13: quiz
+In this channel, quizzes will be held by the staff team to entertain members or for potential prizes. 
+
+Channel 14: giveaway
+In this channel, the staff team will host giveaways with specific requirements and different prizes.
+
+Channel 15: general
+This is the main lobby of the discord channel. Every member can speak in this channel in english only. 
+
+Channel 16: global general
+This is a type of general that is only for Spanish or Portuguese speakers. Speaking English on this channel is not permitted.
+
+Channel 17: media
+In this channel, members can send media through pictures and videos. Speaking in this channel should be at minimum.
+
+Channel 18: suggestions
+In this channel, members can create forums or “suggestions” for the server or the game. All the suggestions that people have should go in this channel, where the HR+ will review them. Accepting all suggestions is not guaranteed.
+
+Channel 19: bot commands
+This channel is only dedicated for using bots on the server. Members should not be using bots in any other channel. 
+
+Channel 20: creations
+In this channel, members can showcase their unique creations. Speaking in this channel is not allowed. Advertising of any type is not allowed.
+
+Channel 21: questions
+This channel is dedicated for questions that members have only. Any questions that members want answered about the server or the hands should be asked here where the staff team or the helper bot will answer the question.
+
+Channel 22: spoilers
+This channel is dedicated to spoilers for recent media. Spoilers are not allowed in any other channel. This channel should only be used for spoilers.
+
+Channel 23: bug reports
+In this channel, members can and are prompted to report any bugs found in-game so that yenn can fix the bugs. 
+
+Channel 24: tickets
+In this channel, members will find the link to the appeal center. Any tickets that members want to create are in the appeal center server. Tickets regarding complaints, support and the game are all in the appeal center.
+
+Channel 25: booster perks
+In this channel, members can view the perks of boosters. The perks are: ## 🌟 BOOSTER PERKS 🌟 
+* *Exclusive Reveals*
+* *Exclusive Chat (can talk on lockdown)*
+* *Picture Permissions*
+* *Nickname Permissions*
+* *Exclusive giveaways*
+* *Exclusive events with exclusive prizes*
 
 
 
 
-COMMON ASKED QUESTIONS
-1. Why are my levels reset?
+Our Appeal Center:
 
-Since the old game was deleted due to copyrights, we were unable to retrieve the old data and transfer it to the new game.
+We recently moved all of our tickets to our new appeal center server. In this server, members can create three different types of tickets. 
 
-can i play this game for free?
-yes, the game can be played for free.
+Server Support - For issues related to the server (mutes, warning, ban or reporting a member).
+Game Support - For appealing ban, reporting glitch abusers/hackers, or issues related to the game.
+File a Complaint - Supervisor-Only: Use this to file a formal complaint against a staff member.
+
+# 📋 **Server General Information: Appeal Center**
+Welcome to the **Appeal Center**. This server is dedicated to maintaining a fair environment for our community by providing a streamlined system to handle appeals, reports, and staff-related issues.
+
+Our goal is to ensure that every player is heard and that all moderation actions are reviewed with transparency.
+
+### 🛠️ **How our Support System Works**
+We utilize an automated ticket system to keep your data private and organized. To receive help:
+* Navigate to the <#create-a-ticket channel.
+* Select the button that matches your issue.
+* A private channel will be created for you to communicate with our team.
+
+### 📂 **Support Categories**
+### 🖥️ ***Server Support***
+Use this category if you are facing issues within the Discord server itself.
+* **Appealing Warnings/Mutes:** If you believe a server-side punishment was unjustified.
+* **Appealing Server Bans: **For users who have been removed from the Discord.
+* **Reporting a Member:** To report a community member for breaking Discord rules.
+
+### 🎮 ***Game Support (Roblox)***
+Use this category for all issues related to the in-game experience.
+* **Appealing Game Bans:** If you have been banned from our Roblox experience.
+* **Reporting Players:** To report hackers, glitch-abusers, or individuals ruining the game experience.
+* **Format Required: **Please ensure you have your Roblox Username and video/photo evidence ready before opening these tickets.
+
+### ⚖️ ***File a Complaint (Supervisor Only)***
+This is a high-level category handled exclusively by our **Supervisor Team**.
+* Use this ONLY for filing formal complaints regarding the conduct or actions of a **Staff Member**.
+*Note:* Misuse of this category may lead to a suspension of ticket privileges.
+
+### ⏱️ **Ticket Policies**
+To ensure our team can help everyone efficiently, please keep the following in mind:
+* **Formatting:** When you open a ticket, a specific format will be provided. Please fill it out completely.
+* **Inactivity:** Tickets with no activity for 24 hours will receive a warning. If a ticket remains inactive for 48 hours, our system will automatically close and archive it.
+* **Transcripts:** Once a ticket is closed, a full transcript is logged for security and record-keeping. You may receive a copy of this via DM (if your DMs are open).
+* **Feedback:** After your ticket is resolved, you will have the option to rate your experience from 1 to 5 stars. We value this feedback to improve our staff team.
+
+
+Discord role descriptions and info:
+
+[LR] - This role is for low rank staff, which are trial mods, moderators, and senior moderators
+[MR] - This role is for middle rank staff, which are Head of Staff
+[HR] - This role is for high rank staff, which are directors and community managers
+Ticket blacklisted - This role is for members who were blacklisted from tickets for breaking rules regarding tickets 
+Unverified - This role is for members who have not verified through bloxlink in #verification
+Verified - This role is for people who have verified through bloxlink in #verification and can therefore access the entire discord server perks
+Experiment- This role is for every member who joined the discord server
+Server booster - this role is for people that boost the server. This role comes with booster perks.
+Showgirl - this is a custom role for the director “harry”
+Blood parrot - this is a custom role for the director “luker”
+Quizzler rizzler - this role is for people who have won a quiz event hosted by staff
+Honored member - this role is for members who have shown honorable actions towards our community. The HR+ gives out this role
+Tester - this role is for the testers of the game
+Designer - this role is for people that have contributed designs for the server and the game
+Testing icon - this role is for those testers that have shown excellent behavior that testers should have. These testers are very active and only the best get this role.
+Muted - this role is for members that have been muted by the staff for breaking the rules
+Inactivity notice - this role is for members or staff that are inactive for a set period of time
+Contributor - this role is for members that have contributed to the server or the game
+Staff team - this role is for staff members
+Engagement department - this role is for staff that work in the engagement department
+Support department - this role is for staff that work in the support department
+Helper - this role is for members that have been chosen as helpers for the server. The helpers answer questions, help new members, etc.
+Trial moderator - this is the very first rank of staff. Trial moderators are handpicked or chosen from staff applications. Trial moderators need to pass their trial to become moderators and officially join the staff team.
+Moderator - this role is for moderators, the heart of the staff team. Moderators moderate the server and take a part in either the support or the engagement department. 
+Senior moderator - this role is for moderators that have shown excellent behavior and skills to be considered master moderators. They help trial mods and moderators. 
+Head of staff - this role is for the middle rank staff team, head of staff
+Director - this role is for the directors of the server.
+Developer - this role is for the developers of the game
+Community manager - this role is for the community managers of the server
+Founder - this role is for the founder of the game , yenn
+
+
+Staff info:
+
+The Staff Team are expected to follow a set of rules as a term of their role as a Moderator. Trial Moderators that have recently passed their trial will be monitored more closer due to their unfamiliarity with the Staff Team, and the High Ranking Staff may want to watch their interactions/moderation.
+Behavior: Staff are expected to demonstrate decent behavior to best represent the PM Team and to ensure that staff can work one-on-one in a friendly environment of mutual respect. Members of staff are recruited based not just on their ability, but equally on their personality. Members should feel welcomed by staff members and find them approachable.
+Teamwork: While a Staff member at PM, you should regularly collaborate with fellow staff members to help us maintain an informed staff team.
+Dedication: Staff should be dedicated to committing time to moderating the server and assisting community members. Staff are recruited based on their drive to support PM in its goals and growth. Inactivity in moderation stats can get you striked.
+BIAS: In your position as a staff member, it’s expected that you will remain impartial when performing moderation duties. Staff found to be working with bias will face discipline or possible termination from their position. An impartial team relates to the behavior of staff.
+Moderation: When moderating the server, staff are expected to follow the moderation system to the best of their ability unless the system is not appropriate or applicable to a certain situation. Staff should remain professional when issuing warnings, mutes, kicks, and bans, following the given formats to prevent confrontation with community members and claims of abuse.
+Confidentiality: Information given to staff outside of public channels is expected to remain secret and should not be leaked—likewise with discussions held in staff channels. Staff who are found to have leaked or distributed staffing material to non-staff will face immediate termination.
+Discord TOS: Staff are required to comply with Discord’s Terms of Service. Staff found to be disregarding Discord’s ToS could face immediate termination. (https://discord.com/terms)
+Breaking these conditions could result in a staff strike or could possibly be grounds for demotions
+Content which should be moderated includes, but is not limited to: 18+/other NSFW content, slur usage, spam, doxxed information, users which are being hostile and/or argumentative, self, and non-self, advertisement, and impersonation of staff.
+
+Moderators reserve the right to moderate at their own discretion however must not moderate with bias. Moderators found moderating with bias or abusing their powers will, depending on circumstance, receive a strike or be removed from the staff team.
+
+When moderating content, the type of action you take should depend on the severity of the content in question. PK has a system in place which helps determine the action that you take. This system should be followed by all members of staff, HR included. 
+
+Moderation system:
+
+Warn 1 - verbal warning issued at discretion of moderators 
+Warn 2 - logged warning issued using ‘?warn’ command 
+Warn 3 - mute user(s) in question using ‘?mute’ command; include time period
+Warn 4 - logged warning issued using ‘?warn’ command or mute if appropriate 
+Warn 5 - auto-ban; whether it is appealable or not will depend on ban reason(s)
+
+The moderation system will not always be applicable to every situation. Depending on the severity of the situation in question, moderators may directly mute or ban a user. e.g. a member that’s posting NSFW content should be banned regardless of their warnings if the content in question is severe or is considered to be 18+ content.
+
+PK does not moderate content said or sent in DMs or in game. Please direct those who report users for something said in DMs or in game to Discord or Roblox support.
+
+- DISCORD SERVER STAFF ROLE AND RESPONSIBILITY GUIDE-
+
+[High Rank]
+Community Manager
+The Community Manager is responsible for the overall health, growth, and direction of the community.
+Responsibilities:
+• Defines the vision, culture, and long-term goals of the server
+• Oversees all staff members and departments
+• Makes final decisions on major policy changes and disputes
+• Ensures the server remains active, welcoming, and aligned with its purpose
+ 
+Director
+The Director manages operations and ensures the Community Manager’s vision is executed properly.
+Responsibilities:
+• Supervises Head of Staff and senior staff members
+• Helps create and enforce server policies
+• Handles escalated issues and serious rule violations
+• Coordinates major events, updates, and staff initiatives
+• Assists with staff evaluations and promotions
+ 
+[Middle Rank]
+Head of the Staff
+The Head of Staff manages the moderation team and maintains staff discipline and performance.
+Responsibilities:
+• Directly oversees Senior Moderators, Moderators, and Trial Moderators
+• Trains staff and ensures rules are enforced consistently
+• Handles staff complaints and internal issues
+• Schedules staff activity and ensures coverage
+• Reports staff performance to Directors
+ 
+[Low Rank]
+Senior Moderator
+Senior Moderators are experienced staff members who lead by example and assist in staff management.
+Responsibilities:
+• Enforces server rules and handles complex moderation cases
+• Mentors Moderators and Trial Moderators
+• Reviews punishment appeals and reports
+• Assists Head of Staff with training and evaluations
+• Acts as leadership when higher staff are unavailable
+ 
+Moderator
+Moderators maintain order and ensure a safe, respectful environment.
+Responsibilities:
+• Monitors chat, voice channels, and server activity
+• Enforces rules (warnings, mutes, kicks, basic bans)
+• Responds to reports and user concerns
+• Prevents spam, harassment, and rule violations
+• Escalates serious issues to senior staff
+ 
+Trial Moderator
+Trial Moderators are staff members in training, learning how to moderate effectively.
+Responsibilities:
+• Observes and assists Moderators and Senior Moderators
+• Handles minor issues under supervision
+• Learns server rules, tools, and procedures
+• Demonstrates professionalism and activity
+• Participates in training and evaluations
+
+- DEPARTMENTS -
+The server operates through two main departments, each with a specific focus to ensure smooth operations, community growth, and member satisfaction. 
+*Staff placement into departments are chosen by the HR team
+
+Engagement Depratment
+Purpose:
+The Engagement Department is responsible for maintaining high activity levels within the server by creating interactive, entertaining, and community-driven experiences.
+Primary Goals:
+• Increase server activity and member participation
+• Build a strong and engaged community
+• Promote the server through events and collaborations
+Core Responsibilities:
+• Events: Plan, organize, and host regular community events
+• Giveaways: Manage fair and engaging giveaways
+• Tournaments: Organize and oversee major competitions and tournaments
+• Influencer Relations: Collaborate with influencers and content creators to promote the server
+• Media Department: Create, manage, and distribute promotional content (announcements, graphics, videos, social posts)
+ 
+Support Department
+Purpose:
+The Support Department ensures members receive timely, accurate, and professional assistance through the Appeal Center.
+Primary Goals:
+• Provide efficient and respectful support to community members
+• Resolve server and game-related issues
+• Maintain transparency and fairness in appeals and reports
+Core Responsibilities:
+• Appeal Center Management: Oversee and process all support tickets
+• Server Support: Handle moderation appeals, rule clarifications, and Discord-related issues
+• Game Support: Assist with in-game issues, bugs, bans, and gameplay-related appeals
+• Ensure proper documentation and follow-up for all cases
+• Escalate complex or sensitive cases to senior staff when necessary
+ 
+IMPORTANT NOTES
+• Departments work closely with moderation and leadership teams
+• Staff members are expected to act professionally, confidentially, and fairly
+• Cross-department collaboration may be required during major events or incidents
+
+Only High Ranks (Director+) can create custom/stan roles at the moment, there are some restrictions for this too.
+
+You can not create more than 1 custom/stan role
+
+
+
+
+
+- EXTRA INFORMATION - 
+
+Regarding giving out roles to members, you should only give out the following roles to members if they qualify for the roles:
+
+-Donator
+-Super Donator
+-Picture Permissions
+-Top Donator
+-On Probation
+-Event Winner
+-Quizzler Rizzler
+-Singer
+-Tournament Champion
+
+
+- EVENTS -
+
+To make this abundantly clear and transparent, you must seek approval from an HR (Admin or above) to host any event, whether it be a stage, competition, or in-game event. This is to prevent any over flooding of events, etc. You may only host 2 events per day as stated before by other HRs, this is always subject to change within the future, but as of now this is our limit. To ensure we don't have back to back events, you must wait at least 2/3 hours after an event has been hosted, to host your own event.
+
+@Event ping is limited to 2 times per event. Should only be used when you announce you’re hosting an event and when it begins.
+
+Custom roles for a limited time as a prize for events is possible as long as it is approved by a HR (Admin+)
+
+
+Tester info: 
+
+Testers are people who test the game to make sure all the bugs are fixed so that the game runs smoothly. Testers can be handpicked or chosen through tester applications that get released periodically. 
+
+
+Staff/tester applications: 
+
+The staff and tester applications are released when the HR thinks that the server needs help from new members joining these teams. Any information regarding this matter will be in the announcements channel. Testers and staff can be handpicked but it’s mostly through applications. 
+
+Gamepass info: 
+
+Our game “project evolvers” has 3 gamepasses, which are: 
+
+2x energy: (cost is 400 robux) 
+
+Igniters early: (cost is 350 robux) Get Early access to Igniters class. this power is FREE, but as its not released it just can be used if u have Early Access
+ once 100% finished it will release as a free class
+
+2x XP: (cost is 500 robux) get 2x more XP
+
+Gamepasses can be included in giveaways or events, but must be approved by the HR+.
+
+
+The game “project evolvers” info: 
+
+Welcome to Project: Evolvers!
+You're an experiment, Train, level up, unlock abilities, and push your limits.
+
+PVP + RP
+Fight, roleplay, make allies—or make enemies.
+
+Choose Your Class:
+• Movers
+• Igniters (Early Access)
+More SOON
+
+Next Update:
+Igniters New skills + Improvements
+
+Notify for updates •
+
+inspired by: Control, Push (2009 Movie), Dark Minds, Stranger Things.
+
+project evolvers, evolvers, stranger things, lab, experiments, psychic, telekinesis, powers, supernatural, pvp, rp, training, multiplayer
+
+Moderation info: 
+
+Warn 1 - verbal warning issued at discretion of moderators 
+Warn 2 - logged warning issued using ‘?warn’ command 
+Warn 3 - mute user(s) in question using ‘?mute’ command; include time period
+Warn 4 - logged warning issued using ‘?warn’ command or mute if appropriate 
+Warn 5 - auto-ban; whether it is appealable or not will depend on ban reason(s)
+
+1. Advertisement - WARN (1st time) BAN (2nd time)
+
+
+2. Nsfw Content and Nsfw Speech - (⚠️VERBAL WARN BEFORE MODERATION FOR MILD) MUTE(1st time) WARN(2nd time) BAN (DEPENDING ON SEVERITY)
+
+3. Insensitive Language - MUTE OR BAN DEPENDING ON SEVERITY 
+
+4. Slur Usage - BAN
+
+5. Malicious Account Behavior - BAN 
+
+6. Participating in server raid - BAN 
+
+7. Spam/Misuse of Channels - (⚠️VERBAL WARN BEFORE MODERATION) WARN OR MUTE AT OWN DISCRETION
+
+8. Targeted Disrespect - (⚠️VERBAL WARN BEFORE MODERATION) WARN or MUTE AT OWN DISCRETION
+
+9. Mass Pinging - (⚠️VERBAL WARN BEFORE MODERATION) WARN OR MUTE AT OWN DISCRETION
+
+
+10. Misuse of Tickets - (⚠️VERBAL WARN BEFORE MODERATION) WARN
+
+11. Body Shaming - (⚠️VERBAL WARN BEFORE MODERATION) WARN (1st time) BAN (2nd time)
+
+12. Death Threats - WARN (1st time) BAN (2nd time)
+
+
+13. Staff Disrespect - (⚠️VERBAL WARN BEFORE MODERATION) WARN OR MUTE AT OWN DISCRETION
+
+14. Ableism/Homophobia/Racism/Transphobia, ETC. - BAN
+
+15. Alternate Accounts - BAN
+
+16. Cross-Platform Trading - BAN
+
+17. Blacklisted server affiliation - BAN
+
+Unban after the person has confirmed that they are no longer in that server.
+
+18. Engaging in Drama- (⚠️VERBAL WARN BEFORE MODERATION) MUTE (1st time) WARN (2nd time)
+
+
+19. Slur Ignorance- BAN
+
+20. Leaking Exclusive Reveals - BAN
+
+21. Moderation Bypass - MUTE (1st time) WARN (2nd time)
+
+22. Doxxing - BAN
+
+
+There are 2 types of bans: appealable in the appeal center and unappealable bans.
+
+Staff team members info:
+
+Yenn - owner
+Eksodia - community manager
+Luke - director
+Harry - director
+McKenna - Head of staff support department
+Charmscoven - Head of staff engagement department
+Maximus - moderator support department
+Husky - moderator engagement department
+
+Events/giveaways info:
+
+- EVENTS -
+
+To make this abundantly clear and transparent, you must seek approval from an HR (Admin or above) to host any event, whether it be a stage, competition, or in-game event. This is to prevent any over flooding of events, etc. You may only host 2 events per day as stated before by other HRs, this is always subject to change within the future, but as of now this is our limit. To ensure we don't have back to back events, you must wait at least 2/3 hours after an event has been hosted, to host your own event.
+
+@Event ping is limited to 2 times per event. Should only be used when you announce you’re hosting an event and when it begins.
+
+Custom roles for a limited time as a prize for events is possible as long as it is approved by a HR (Admin+)
+
+Giveaways:
+Giveaways can be hosted by members donating or the staff donating. Giveaways can have requirements like certain message counts. The staff team can’t join giveaways. 
+
+Booster info: 
+
+## 🌟 BOOSTER PERKS 🌟 
+
+* *Exclusive Reveals*
+* *Exclusive Chat (can talk on lockdown)*
+* *Picture Permissions*
+* *Nickname Permissions*
+* *Exclusive giveaways*
+* *Exclusive events with exclusive prizes*
+
+Pic perms info;
+
+Regular members don’t have picture permissions in any channels except media, no exceptions. If a member wants to have picture permissions, they must boost or become staff. 
+
+Rules for channels: 
+
+#quiz: in this channel, members shouldn’t be speaking except when they’re answering the quiz questions. There should be no side talk during quizzes
+#general: members should only be speaking english. All the server rules apply
+#global-general: members should only be speaking spanish or portuguese. All server rules apply
+#media: members should only be sending media through pictures and videos. No spoilers or inappropriate content that breaks rules.
+#suggestions: this channel is dedicated only for suggestions. No sidechat is allowed. 
+#bot commands: only bot commands should be used, no sidechat.
+#creations: only creations should be posted through photos and videos. No advertising at all, and no sidechat.
+#questions: people should only be asking questions regarding the server and the game. 
+#spoilers: people should only be speaking about content with spoilers
+#bug reports: people should only be reporting bugs.
+
+How to check pages:
+
+If people ask how to check page or message count, they should press the magnifying glass in the top right corner in the general channel. Then, they should type “from:” and then enter their name. Page count and messages will then be shown 
+
+How to check Discord ID:
+
+To find a Discord ID, you first need to enable 
+Developer Mode in User Settings (under Advanced), then you can right-click (desktop) or tap (mobile) on a user's profile, server icon, or message and select "Copy User ID" from the menu that appears. This unique number identifies users, servers, and messages, and is useful for bots, moderation, or support. 
+How to Enable Developer Mode (Desktop & Mobile)
+Open Settings: Click the gear icon (⚙️) next to your username in the bottom-left (desktop) or tap your profile picture (mobile).
+Go to Advanced: In the left sidebar, find "App Settings" and select Advanced.
+Toggle Developer Mode: Turn the "Developer Mode" option ON. 
+How to Get a User ID
+On Desktop: Right-click on the user's name or profile picture in a chat or server list and select Copy User ID.
+On Mobile: Tap the user's name to open their profile, then tap the three dots (•••) in the top-right corner and select Copy User ID. 
+Timezone info;
+If people ask how to check timezones, timezones are based on what part of the world they live in. This is a big part of staff and tester applications. To get one’s timezone, type in the city and country you live in and add “timezone”
+“Why was I warned/muted?” Answers:
+Every decision is carefully planned by the staff team. There is a reason and evidence for every punishment. To answer these types of questions, tell them to open up a ticket in the appeal center to get more info on their punishment or just simply ask the HR for info. 
+
+Specific rules for applications/giveaways:
+
+Members are allowed to gain pages or messages while an application is ongoing, but for giveaways, the members are required to have a set amount of messages before joining the giveaway. Breaking the rules of giveaways will result in a giveaway blacklist. People can only fill out applications once, unless there's a mistake, in which case they should open a ticket in the appeal server. Members should read requirements for giveaways and applications before applying or joining giveaways. 
