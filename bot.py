@@ -29,42 +29,42 @@ MODEL_NAME = "gemini-flash-lite-latest"
 # Setup Google GenAI Client
 client_genai = genai.Client(api_key=GOOGLE_API_KEY)
 
+# Global Variable for Knowledge
 knowledge_base = ""
+
 def load_knowledge():
-"""Helper function to load knowledge from file."""
-global knowledge_base
-try:
-with open(KNOWLEDGE_FILE, 'r', encoding='utf-8') as f:
-knowledge_base = f.read()
-print(f"Knowledge file loaded! ({len(knowledge_base)} characters)")
-return True
-except FileNotFoundError:
-print(f"CRITICAL ERROR: Could not find {KNOWLEDGE_FILE}.")
-knowledge_base = ""
-return False
-Initial Load
+    """Helper function to load knowledge from file."""
+    global knowledge_base
+    try:
+        with open(KNOWLEDGE_FILE, 'r', encoding='utf-8') as f:
+            knowledge_base = f.read()
+        print(f"Knowledge file loaded! ({len(knowledge_base)} characters)")
+        return True
+    except FileNotFoundError:
+        print(f"CRITICAL ERROR: Could not find {KNOWLEDGE_FILE}.")
+        knowledge_base = ""
+        return False
+
+# Initial Load
 load_knowledge()
-Setup Discord Client
+
+# Setup Discord Client
 intents = discord.Intents.default()
 intents.message_content = True
 client_discord = discord.Client(intents=intents)
-Keep Alive (For Render)
-try:
-from keep_alive import keep_alive
-keep_alive()
-except ImportError:
-print("Keep alive module not found. Skipping web server.")
+
 @client_discord.event
 async def on_ready():
-print(f'Logged in as {client_discord.user}')
-print(f"Questions Channel: {QUESTIONS_CHANNEL_ID}")
-print(f"Missed Qs Channel: {ADMIN_CHANNEL_MISSING_ANSWERS_ID}")
+    print(f'Logged in as {client_discord.user}')
+    print(f"Questions Channel: {QUESTIONS_CHANNEL_ID}")
+    print(f"Admin Channel: {ADMIN_CHANNEL_ID}")
+
+
 @client_discord.event
 async def on_message(message):
 if message.author == client_discord.user:
 return
-code
-Code
+
 # 1. ADMIN COMMANDS (!reload)
 if message.content == "!reload":
     if message.channel.id == ADMIN_CHANNEL_ID and message.author.id == ADMIN_USER_ID:
@@ -172,6 +172,7 @@ async with message.channel.typing():
     except Exception as e:
         print(f"Critical Bot Error: {e}")
 client_discord.run(DISCORD_TOKEN) 
+
 
 
 
