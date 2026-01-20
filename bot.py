@@ -29,149 +29,150 @@ MODEL_NAME = "gemini-flash-lite-latest"
 # Setup Google GenAI Client
 client_genai = genai.Client(api_key=GOOGLE_API_KEY)
 
-# ================= SYSTEM BRAIN =================
-# This tells the AI how to behave regardless of the knowledge base
-SYSTEM_INSTRUCTION = """
-You are the official 'Project Evolvers Assistant'. Your job is to help users with questions about the game and the Discord server.
-
-CORE RULES:
-1. USE THE KNOWLEDGE BASE: Always prioritize information from the provided text.
-2. BE DIRECT: Give clear, concise answers. Use bullet points for lists.
-3. NO MARKDOWN HEADERS: Do not use '#' for headers. Use bold text (**) or bullet points instead.
-4. CONCEPT MATCHING: If a user asks about a specific example (like "TikTok"), map it to the general rule (like "Advertising/Social Media").
-5. SILENCE PROTOCOL: If the question is 100% unrelated to the game, server, or Discord, reply ONLY with the word: SILENCE.
-6. PUNISHMENT INQUIRIES: If a user asks why they were banned/warned, tell them to open a ticket in the Appeal Center.
-7. TONE: Helpful, professional, and observant of server rules.
-"""
-
-# Setup Clients
-client_genai = genai.Client(api_key=GOOGLE_API_KEY)
+knowledge_base = ""
+def load_knowledge():
+"""Helper function to load knowledge from file."""
+global knowledge_base
+try:
+with open(KNOWLEDGE_FILE, 'r', encoding='utf-8') as f:
+knowledge_base = f.read()
+print(f"Knowledge file loaded! ({len(knowledge_base)} characters)")
+return True
+except FileNotFoundError:
+print(f"CRITICAL ERROR: Could not find {KNOWLEDGE_FILE}.")
+knowledge_base = ""
+return False
+Initial Load
+load_knowledge()
+Setup Discord Client
 intents = discord.Intents.default()
 intents.message_content = True
 client_discord = discord.Client(intents=intents)
-
-knowledge_base = ""
-
-def load_knowledge():
-    """Loads and refreshes the knowledge base from knowledge.txt"""
-    global knowledge_base
-    try:
-        with open(KNOWLEDGE_FILE, 'r', encoding='utf-8') as f:
-            knowledge_base = f.read()
-        print(f"✅ Knowledge base loaded ({len(knowledge_base)} chars)")
-        return True
-    except FileNotFoundError:
-        print(f"❌ CRITICAL ERROR: {KNOWLEDGE_FILE} not found!")
-        return False
-
-# Initial load
-load_knowledge()
-
-# Optional: Keep Alive for 24/7 hosting
+Keep Alive (For Render)
 try:
-    from keep_alive import keep_alive
-    keep_alive()
+from keep_alive import keep_alive
+keep_alive()
 except ImportError:
-    pass
-
+print("Keep alive module not found. Skipping web server.")
 @client_discord.event
 async def on_ready():
-    print(f'Logged in as {client_discord.user}')
-    print("Bot is active and listening...")
-
+print(f'Logged in as {client_discord.user}')
+print(f"Questions Channel: {QUESTIONS_CHANNEL_ID}")
+print(f"Missed Qs Channel: {ADMIN_CHANNEL_MISSING_ANSWERS_ID}")
 @client_discord.event
 async def on_message(message):
-    # 1. Basic Filters
-    if message.author == client_discord.user:
-        return
+if message.author == client_discord.user:
+return
+code
+Code
+# 1. ADMIN COMMANDS (!reload)
+if message.content == "!reload":
+    if message.channel.id == ADMIN_CHANNEL_ID and message.author.id == ADMIN_USER_ID:
+        success = load_knowledge()
+        if success:
+            await message.reply("✅ Knowledge base reloaded successfully!")
+        else:
+            await message.reply("❌ Error: Could not find the knowledge file.")
+    return 
 
-    # 2. Admin Reload Command
-    if message.content == "!reload":
-        if message.channel.id == ADMIN_CHANNEL_ID and message.author.id == ADMIN_USER_ID:
-            if load_knowledge():
-                await message.reply("✅ Knowledge base reloaded successfully!")
-            else:
-                await message.reply("❌ Error: Knowledge file missing.")
-        return
+# 2. PUBLIC QUESTIONS
+if message.channel.id != QUESTIONS_CHANNEL_ID:
+    return
 
-    # 3. Channel/Mention Check
-    is_question_channel = message.channel.id == QUESTIONS_CHANNEL_ID
-    is_mentioned = client_discord.user in message.mentions
-    
-    # Only proceed if in the right channel or the bot is mentioned
-    if not (is_question_channel or is_mentioned):
-        return
+is_question = message.content.strip().endswith("?")
+is_mentioned = client_discord.user in message.mentions
 
-    # 4. Process the Question
-    async with message.channel.typing():
-        try:
-            # Build Conversation History for Context
-            history_buffer = []
-            async for msg in message.channel.history(limit=6):
-                role = "model" if msg.author == client_discord.user else "user"
-                history_buffer.append(f"{role.upper()}: {msg.clean_content}")
+if not (is_question or is_mentioned):
+    return
+
+if not knowledge_base:
+    return 
+
+print(f"Processing for {message.author}: {message.content}")
+
+async with message.channel.typing():
+    try:
+        # Context
+        history_buffer = []
+        async for msg in message.channel.history(limit=5):
+            clean_content = msg.clean_content 
+            history_buffer.append(f"{msg.author.name}: {clean_content}")
+        
+        history_buffer.reverse()
+        conversation_text = "\n".join(history_buffer)
+
+        prompt = (
+            f"You are a helpful assistant for a Discord server. "
+            f"Use the 'Knowledge Base' below to answer the user's question.\n\n"
             
-            history_buffer.reverse()
-            conversation_context = "\n".join(history_buffer)
+            f"INSTRUCTIONS FOR AI:\n"
+            f"1. **Match Concepts, Not Just Words:** If the user asks about a specific example (e.g., 'YouTube') and the rules mention a general category (e.g., 'No Advertising'), you MUST apply the rule and answer.\n"
+            f"2. **Be Direct:** Answer clearly based on the text provided.\n"
+            f"3. **When to use SILENCE:** Only reply 'SILENCE' if the question is 100% unrelated (like asking about cooking or politics). If the question is even slightly related to the server, YOU MUST ANSWER.\n"
+            f"4. Do NOT use markdown headers like #.\n\n"
 
-            # Construct the final prompt
-            prompt = (
-                f"--- KNOWLEDGE BASE ---\n{knowledge_base}\n\n"
-                f"--- RECENT CONVERSATION ---\n{conversation_context}\n\n"
-                f"USER QUESTION: {message.content}"
-            )
+            f"--- KNOWLEDGE BASE ---\n{knowledge_base}\n\n"
+            f"--- CONVERSATION HISTORY ---\n{conversation_text}\n\n"
+            f"User Question: {message.content}"
+        )
 
-            # API Call with Retry Logic
-            response_text = None
-            for attempt in range(3):
-                try:
-                    response = client_genai.models.generate_content(
-                        model=MODEL_NAME,
-                        config={
-                            "system_instruction": SYSTEM_INSTRUCTION,
-                            "temperature": 0.3, # Low temperature for factual accuracy
-                            "top_p": 0.8,
-                        },
-                        contents=prompt
-                    )
-                    if response.text:
-                        response_text = response.text.strip()
-                        break
-                except Exception as api_err:
-                    if "429" in str(api_err): # Rate limit
-                        print(f"Rate limit hit, retrying in 5s... (Attempt {attempt+1})")
-                        await asyncio.sleep(5)
-                    else:
-                        print(f"API Error: {api_err}")
-                        break
+        # --- RETRY LOGIC (ADDED HERE) ---
+        response_text = None
+        
+        # Try 3 times to get an answer
+        for attempt in range(3):
+            try:
+                response = client_genai.models.generate_content(
+                    model=MODEL_NAME,
+                    contents=prompt
+                )
+                
+                if response.text:
+                    response_text = response.text.strip()
+                    break # Success! Exit the loop
 
-            if not response_text:
-                return
+            except Exception as api_error:
+                # Check if error is Rate Limit (429)
+                if "429" in str(api_error):
+                    print(f"⚠️ Rate limit hit. Waiting 5 seconds... (Attempt {attempt+1}/3)")
+                    await asyncio.sleep(5) # Wait
+                else:
+                    print(f"❌ API Error: {api_error}")
+                    break # Stop if it's a different error
 
-            # 5. Handle AI Decision
-            if "SILENCE" in response_text:
-                print(f"Missed question log sent for: {message.author.name}")
-                admin_channel = client_discord.get_channel(ADMIN_CHANNEL_MISSING_ANSWERS_ID)
-                if admin_channel:
-                    embed = discord.Embed(title="⚠️ Missed Question", color=discord.Color.orange())
-                    embed.add_field(name="User", value=message.author.mention, inline=True)
-                    embed.add_field(name="Channel", value=message.channel.name, inline=True)
-                    embed.add_field(name="Content", value=message.content, inline=False)
-                    await admin_channel.send(embed=embed)
-                return
+        # If failed after 3 tries, stop
+        if not response_text:
+            print("Failed to get answer after retries.")
+            return
 
-            # 6. Send Response (with 2000 char handling)
-            if len(response_text) > 2000:
-                for i in range(0, len(response_text), 1900):
-                    await message.reply(response_text[i:i+1900])
-            else:
-                await message.reply(response_text)
+        # --- SILENCE CHECK ---
+        if response_text == "SILENCE":
+            print(f"Missed question from {message.author.name}")
+            
+            admin_channel = client_discord.get_channel(ADMIN_CHANNEL_MISSING_ANSWERS_ID)
+            if admin_channel:
+                await admin_channel.send(
+                    f"⚠️ **Missed Question**\n"
+                    f"**User:** {message.author.name}\n"
+                    f"**Question:** {message.content}"
+                )
+            return 
 
-        except Exception as e:
-            print(f"Critical Error: {e}")
+        # --- SENDING MESSAGE ---
+        if len(response_text) > 2000:
+            parts = [response_text[i:i+1900] for i in range(0, len(response_text), 1900)]
+            for index, part in enumerate(parts):
+                if index == 0:
+                    await message.reply(part)
+                else:
+                    await message.channel.send(part)
+        else:
+            await message.reply(response_text)
 
-# Run Bot
-client_discord.run(DISCORD_TOKEN)
+    except Exception as e:
+        print(f"Critical Bot Error: {e}")
+client_discord.run(DISCORD_TOKEN) 
+
 
 
 
