@@ -62,46 +62,57 @@ async def on_ready():
 
 @client_discord.event
 async def on_message(message):
-if message.author == client_discord.user:
-return
+    # Ignore own messages
+    if message.author == client_discord.user:
+        return
 
-# 1. ADMIN COMMANDS (!reload)
-if message.content == "!reload":
-    if message.channel.id == ADMIN_CHANNEL_ID and message.author.id == ADMIN_USER_ID:
-        success = load_knowledge()
-        if success:
-            await message.reply("✅ Knowledge base reloaded successfully!")
-        else:
-            await message.reply("❌ Error: Could not find the knowledge file.")
-    return 
+    # =======================================================
+    # LOGIC 1: ADMIN COMMANDS (Check this FIRST)
+    # =======================================================
+    if message.content == "!reload":
+        # Check if it is the correct channel AND the correct user
+        if message.channel.id == ADMIN_CHANNEL_ID and message.author.id == ADMIN_USER_ID:
+            success = load_knowledge()
+            if success:
+                await message.reply("✅ Knowledge base reloaded successfully!")
+            else:
+                await message.reply("❌ Error: Could not find the knowledge file.")
+        return # Stop processing here if it was a command (even if unauthorized)
 
-# 2. PUBLIC QUESTIONS
-if message.channel.id != QUESTIONS_CHANNEL_ID:
-    return
+    # =======================================================
+    # LOGIC 2: PUBLIC QUESTIONS (Check this SECOND)
+    # =======================================================
+    
+    # If the message is NOT in the questions channel, stop immediately.
+    if message.channel.id != QUESTIONS_CHANNEL_ID:
+        return
 
-is_question = message.content.strip().endswith("?")
-is_mentioned = client_discord.user in message.mentions
+    # Check triggers: Ends with "?" OR Bot is Mentioned
+    is_question = message.content.strip().endswith("?")
+    is_mentioned = client_discord.user in message.mentions
 
-if not (is_question or is_mentioned):
-    return
+    if not (is_question or is_mentioned):
+        return
 
-if not knowledge_base:
-    return 
+    if not knowledge_base:
+        return 
 
-print(f"Processing for {message.author}: {message.content}")
+    print(f"Processing for {message.author}: {message.content}")
 
-async with message.channel.typing():
-    try:
-        # Context
-        history_buffer = []
-        async for msg in message.channel.history(limit=5):
-            clean_content = msg.clean_content 
-            history_buffer.append(f"{msg.author.name}: {clean_content}")
-        
-        history_buffer.reverse()
-        conversation_text = "\n".join(history_buffer)
+    async with message.channel.typing():
+        try:
+            # --- CONTEXT AWARENESS ---
+            # Fetch last 5 messages for context
+            history_buffer = []
+            async for msg in message.channel.history(limit=5):
+                clean_content = msg.clean_content 
+                history_buffer.append(f"{msg.author.name}: {clean_content}")
+            
+            history_buffer.reverse()
+            conversation_text = "\n".join(history_buffer)
 
-        prompt = (
+            # --- PROMPT ---
+            prompt = (
             f"You are a helpful assistant for a Discord server. "
             f"Use the 'Knowledge Base' below to answer the user's question.\n\n"
             
@@ -114,64 +125,45 @@ async with message.channel.typing():
             f"--- KNOWLEDGE BASE ---\n{knowledge_base}\n\n"
             f"--- CONVERSATION HISTORY ---\n{conversation_text}\n\n"
             f"User Question: {message.content}"
-        )
+            )
 
-        # --- RETRY LOGIC (ADDED HERE) ---
-        response_text = None
-        
-        # Try 3 times to get an answer
-        for attempt in range(3):
-            try:
-                response = client_genai.models.generate_content(
-                    model=MODEL_NAME,
-                    contents=prompt
-                )
-                
-                if response.text:
-                    response_text = response.text.strip()
-                    break # Success! Exit the loop
-
-            except Exception as api_error:
-                # Check if error is Rate Limit (429)
-                if "429" in str(api_error):
-                    print(f"⚠️ Rate limit hit. Waiting 5 seconds... (Attempt {attempt+1}/3)")
-                    await asyncio.sleep(5) # Wait
-                else:
-                    print(f"❌ API Error: {api_error}")
-                    break # Stop if it's a different error
-
-        # If failed after 3 tries, stop
-        if not response_text:
-            print("Failed to get answer after retries.")
-            return
-
-        # --- SILENCE CHECK ---
-        if response_text == "SILENCE":
-            print(f"Missed question from {message.author.name}")
+            response = client_genai.models.generate_content(
+                model=MODEL_NAME,
+                contents=prompt
+            )
             
-            admin_channel = client_discord.get_channel(ADMIN_CHANNEL_MISSING_ANSWERS_ID)
-            if admin_channel:
-                await admin_channel.send(
-                    f"⚠️ **Missed Question**\n"
-                    f"**User:** {message.author.name}\n"
-                    f"**Question:** {message.content}"
-                )
-            return 
+            if response.text:
+                response_text = response.text.strip()
+                
+                # --- SILENCE CHECK ---
+                if response_text == "SILENCE":
+                    print("Answer not found. Logging to missed_questions.txt")
+                    with open(MISSED_QUESTIONS_FILE, "a", encoding="utf-8") as log:
+                        log.write(f"[{message.created_at}] {message.author.name}: {message.content}\n")
+                    return 
 
-        # --- SENDING MESSAGE ---
-        if len(response_text) > 2000:
-            parts = [response_text[i:i+1900] for i in range(0, len(response_text), 1900)]
-            for index, part in enumerate(parts):
-                if index == 0:
-                    await message.reply(part)
+                # --- SENDING THE MESSAGE (PLAIN TEXT) ---
+                # Check for length limit (2000 chars)
+                if len(response_text) > 2000:
+                    # Split into chunks of 1900 to be safe
+                    parts = [response_text[i:i+1900] for i in range(0, len(response_text), 1900)]
+                    
+                    for index, part in enumerate(parts):
+                        if index == 0:
+                            # Reply to the user for the first part
+                            await message.reply(part)
+                        else:
+                            # Send the rest as normal messages
+                            await message.channel.send(part)
                 else:
-                    await message.channel.send(part)
-        else:
-            await message.reply(response_text)
+                    # Short message: Just reply normally
+                    await message.reply(response_text)
 
-    except Exception as e:
-        print(f"Critical Bot Error: {e}")
+        except Exception as e:
+            print(f"Error: {e}")
+keep_alive() # <--- ADD THIS
 client_discord.run(DISCORD_TOKEN) 
+
 
 
 
