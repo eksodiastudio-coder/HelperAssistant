@@ -11,53 +11,79 @@ load_dotenv()
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 KNOWLEDGE_FILE = 'knowledge.txt'
-# Replace with the ID of your specific questions channel
 MISSED_QUESTIONS_FILE = 'missed_questions.txt'
 
 # Replace with the ID of your specific questions channel
 QUESTIONS_CHANNEL_ID = 1449084904343339168 
 
+# Channel where the bot will post questions it couldn't answer
 ADMIN_CHANNEL_MISSING_ANSWERS_ID = 1461483376195145758
 
-# Replace with YOUR Discord User ID (Integer) so only you can use !reload
-# Turn on Developer Mode in Discord -> Right Click your Name -> Copy User ID
-ADMIN_USER_ID = 545298092048646144 
+# NEW: Channel where helpers paste the answers. The bot will read this to learn.
+# PUT YOUR CHANNEL ID HERE
+ADD_MISSING_ANSWERS_CHANNEL_ID = 1474477349738381459 
 
 ADMIN_CHANNEL_ID = 1453869127180746843
+ADMIN_USER_ID = 545298092048646144 
 
 MODEL_NAME = "gemini-flash-lite-latest"
 # Setup Google GenAI Client
 client_genai = genai.Client(api_key=GOOGLE_API_KEY)
 
-# Global Variable for Knowledge
+# Global Variable for Combined Knowledge (File + Channel)
 knowledge_base = ""
-
-def load_knowledge():
-    """Helper function to load knowledge from file."""
-    global knowledge_base
-    try:
-        with open(KNOWLEDGE_FILE, 'r', encoding='utf-8') as f:
-            knowledge_base = f.read()
-        print(f"Knowledge file loaded! ({len(knowledge_base)} characters)")
-        return True
-    except FileNotFoundError:
-        print(f"CRITICAL ERROR: Could not find {KNOWLEDGE_FILE}.")
-        knowledge_base = ""
-        return False
-
-# Initial Load
-load_knowledge()
 
 # Setup Discord Client
 intents = discord.Intents.default()
 intents.message_content = True
 client_discord = discord.Client(intents=intents)
 
+async def build_knowledge_base():
+    """Builds knowledge from both the text file and the helpers channel."""
+    global knowledge_base
+    static_kb = ""
+    dynamic_kb = ""
+    
+    # 1. Load General Info from File
+    try:
+        with open(KNOWLEDGE_FILE, 'r', encoding='utf-8') as f:
+            static_kb = f.read()
+    except FileNotFoundError:
+        print(f"CRITICAL ERROR: Could not find {KNOWLEDGE_FILE}.")
+        static_kb = ""
+
+    # 2. Load Dynamic Info from Helper Channel
+    helper_channel = client_discord.get_channel(ADD_MISSING_ANSWERS_CHANNEL_ID)
+    if helper_channel:
+        try:
+            # Fetches the last 500 messages from the helper channel
+            messages = [msg async for msg in helper_channel.history(limit=500)]
+            messages.reverse() # Read from oldest to newest
+            for msg in messages:
+                if msg.content.strip():
+                    dynamic_kb += f"- {msg.content}\n"
+        except Exception as e:
+            print(f"Error reading helper channel: {e}")
+    else:
+        print("Warning: Could not find the ADD_MISSING_ANSWERS_CHANNEL_ID channel.")
+
+    # Combine both sources
+    knowledge_base = (
+        f"--- GENERAL SERVER KNOWLEDGE ---\n{static_kb}\n\n"
+        f"--- HELPER ADDED KNOWLEDGE (SPECIFIC ANSWERS) ---\n{dynamic_kb}"
+    )
+    print(f"Knowledge base compiled! ({len(knowledge_base)} characters)")
+    return True
+
+
 @client_discord.event
 async def on_ready():
     print(f'Logged in as {client_discord.user}')
     print(f"Questions Channel: {QUESTIONS_CHANNEL_ID}")
     print(f"Admin Channel: {ADMIN_CHANNEL_ID}")
+    
+    # Load knowledge once the bot is connected so it can read channels
+    await build_knowledge_base()
 
 
 @client_discord.event
@@ -67,20 +93,27 @@ async def on_message(message):
         return
 
     # =======================================================
-    # LOGIC 1: ADMIN COMMANDS (Check this FIRST)
+    # LOGIC 1: ADMIN COMMANDS & AUTO-LEARNING
     # =======================================================
+    
+    # Reload command
     if message.content == "!reload":
-        # Check if it is the correct channel AND the correct user
         if message.channel.id == ADMIN_CHANNEL_ID and message.author.id == ADMIN_USER_ID:
-            success = load_knowledge()
+            success = await build_knowledge_base()
             if success:
-                await message.reply("✅ Knowledge base reloaded successfully!")
+                await message.reply("✅ Knowledge base reloaded successfully from file and channels!")
             else:
-                await message.reply("❌ Error: Could not find the knowledge file.")
-        return # Stop processing here if it was a command (even if unauthorized)
+                await message.reply("❌ Error compiling knowledge base.")
+        return 
+
+    # AUTO-LEARNING: If a helper posts in the add-missing-answer channel
+    if message.channel.id == ADD_MISSING_ANSWERS_CHANNEL_ID:
+        await build_knowledge_base() # Update memory immediately
+        await message.add_reaction("🧠") # Let the helper know the bot learned it
+        return
 
     # =======================================================
-    # LOGIC 2: PUBLIC QUESTIONS (Check this SECOND)
+    # LOGIC 2: PUBLIC QUESTIONS
     # =======================================================
     
     # If the message is NOT in the questions channel, stop immediately.
@@ -102,7 +135,6 @@ async def on_message(message):
     async with message.channel.typing():
         try:
             # --- CONTEXT AWARENESS ---
-            # Fetch last 5 messages for context
             history_buffer = []
             async for msg in message.channel.history(limit=5):
                 clean_content = msg.clean_content 
@@ -119,10 +151,10 @@ async def on_message(message):
             f"INSTRUCTIONS FOR AI:\n"
             f"1. **Match Concepts, Not Just Words:** If the user asks about a specific example (e.g., 'YouTube') and the rules mention a general category (e.g., 'No Advertising'), you MUST apply the rule and answer.\n"
             f"2. **Be Direct:** Answer clearly based on the text provided.\n"
-            f"3. **When to use SILENCE:** Only reply 'SILENCE' if the question is 100% unrelated (like asking about cooking or politics). If the question is even slightly related to the server, YOU MUST ANSWER.\n"
+            f"3. **When to use SILENCE:** If the answer to the user's question is NOT found in the Knowledge Base provided below, you MUST reply with exactly the word 'SILENCE'. Do not guess or make up answers.\n"
             f"4. Do NOT use markdown headers like #.\n\n"
 
-            f"--- KNOWLEDGE BASE ---\n{knowledge_base}\n\n"
+            f"{knowledge_base}\n\n"
             f"--- CONVERSATION HISTORY ---\n{conversation_text}\n\n"
             f"User Question: {message.content}"
             )
@@ -135,39 +167,38 @@ async def on_message(message):
             if response.text:
                 response_text = response.text.strip()
                 
-                # --- SILENCE CHECK ---
+                # --- SILENCE CHECK (MISSING KNOWLEDGE LOGIC) ---
                 if response_text == "SILENCE":
-                    print("Answer not found. Logging to missed_questions.txt")
+                    print("Answer not found. Forwarding to missing answers channel.")
+                    
+                    # Keep logging to file as backup
                     with open(MISSED_QUESTIONS_FILE, "a", encoding="utf-8") as log:
                         log.write(f"[{message.created_at}] {message.author.name}: {message.content}\n")
+                    
+                    # Send alert to Admin Missing Answers Channel
+                    missing_channel = client_discord.get_channel(ADMIN_CHANNEL_MISSING_ANSWERS_ID)
+                    if missing_channel:
+                        await missing_channel.send(
+                            f"🚨 **Unanswered Question** 🚨\n"
+                            f"**User:** {message.author.mention}\n"
+                            f"**Question:** {message.content}\n"
+                            f"*Please add the answer to the <#{ADD_MISSING_ANSWERS_CHANNEL_ID}> channel.*"
+                        )
                     return 
 
                 # --- SENDING THE MESSAGE (PLAIN TEXT) ---
-                # Check for length limit (2000 chars)
                 if len(response_text) > 2000:
-                    # Split into chunks of 1900 to be safe
                     parts = [response_text[i:i+1900] for i in range(0, len(response_text), 1900)]
-                    
                     for index, part in enumerate(parts):
                         if index == 0:
-                            # Reply to the user for the first part
                             await message.reply(part)
                         else:
-                            # Send the rest as normal messages
                             await message.channel.send(part)
                 else:
-                    # Short message: Just reply normally
                     await message.reply(response_text)
 
         except Exception as e:
             print(f"Error: {e}")
-keep_alive() # <--- ADD THIS
-client_discord.run(DISCORD_TOKEN) 
 
-
-
-
-
-
-
-
+keep_alive()
+client_discord.run(DISCORD_TOKEN)
