@@ -3,24 +3,6 @@
 ## [GAMEPLAY & CLASSES]
 - Game Name: Project: Evolvers (Inspired by Control, Push, Dark Minds, Stranger Things).
 - Core Concept: PVP + RP. Players are experiments training to unlock powers.
-- Movers Class (Free):
-  * Lvl 5: Bone break & Leap
-  * Lvl 10: Levitation
-  * Lvl 15: Shockwave
-  * Lvl 20: Pull
-  * Lvl 25: Shield
-- Igniters Class: Currently in Early Access (Phase 1).
-- Leveling: Kills are the fastest way to level. 
-- Gamepasses: 
-  * 2x Energy (400 Robux): Helps get more kills.
-  * 2x XP (500 Robux): More XP per kill; fewer kills needed to level.
-  * Igniters Early Access (350 Robux): Play it early; will be FREE later.
-
-## [EARLY ACCESS PHILOSOPHY]
-- Phased Releases: Classes drop in phases (2 classes per phase).
-- Reason: Phasing ensures long-term funding for development, servers, and assets.
-- Fairness: All Early Access classes become FREE for everyone after the testing phase ends.
-- Anti-P2W Rule: Level cap is restricted to Level 10 during Early Access to keep fights fair.
 
 ## [DISCORD CHANNELS & USAGE]
 - #welcome: No speaking allowed.
@@ -89,3 +71,4 @@
 - Behavior: Must be professional, impartial, and approachable.
 - Confidentiality: Leaking staff-only info results in immediate termination.
 - Teamwork: Collaboration is required. Inactivity leads to strikes.
+
