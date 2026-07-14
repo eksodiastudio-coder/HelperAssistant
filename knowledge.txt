@@ -1,34 +1,5 @@
 # PROJECT EVOLVERS: COMPREHENSIVE DATA
 
-## [GAMEPLAY & CLASSES]
-- Game Name: Project: Evolvers (Inspired by Control, Push, Dark Minds, Stranger Things).
-- Core Concept: PVP + RP. Players are experiments training to unlock powers.
-
-## [DISCORD CHANNELS & USAGE]
-- #welcome: No speaking allowed.
-- #verification: Verify via BloxLink. If it fails, open a ticket or talk to HR+.
-- #announcements: Only HR+ speaks. Staff/Tester applications are posted here.
-- #reveals: Game updates/leaks posted by owner "yenn".
-- #poll-answer: Discuss active polls here.
-- #hall-of-fame / #hall-of-shame: Staff only.
-- #general: English ONLY.
-- #global-general: Spanish or Portuguese ONLY. No English.
-- #media: Pictures/Videos only. No spoilers. Minimal talking.
-- #suggestions: Use forums here. No sidechat.
-- #bot-commands: Use bots here ONLY. No sidechat.
-- #creations: Showcase work. No advertising. No sidechat.
-- #questions: Questions for Staff/Bot. No sidechat.
-- #spoilers: Only place for spoilers.
-- #bug-reports: Report bugs for yenn to fix.
-- #tickets: Links to Appeal Center.
-
-## [APPEAL CENTER & SUPPORT]
-- Link: https://discord.gg/yyDcmvh84m
-- Server Support: Mutes, warnings, bans, reporting members.
-- Game Support: Game bans, reporting hackers/glitchers (Requires Roblox Username + Evidence).
-- File a Complaint: Supervisor-Only. For reporting Staff misconduct.
-- Policies: Tickets with no activity for 24h get a warning; 48h they are closed/archived.
-
 ## [ROLES & PERKS]
 - Staff Ranks: LR (Trial Mod, Mod, Senior Mod), MR (Head of Staff), HR (Director, Community Manager).
 - Owner: Yenn.
@@ -40,35 +11,10 @@
   * Honored Member: Given by HR+ for community service.
   * Testing Icon: Top-tier active testers.
 
-## [MODERATION SYSTEM]
-- Warn 1: Verbal.
-- Warn 2: ?warn command.
-- Warn 3: Mute.
-- Warn 4: Warn or Mute.
-- Warn 5: Auto-Ban.
-- Instant Ban Offenses: Slurs, Slur Ignorance, NSFW (Mild = Verbal first), Doxxing, Raiding, Alts, Cross-Platform Trading, Leaking Exclusive Reveals, Blacklisted Server Affiliation, Death Threats (2nd offense), Body Shaming (2nd offense).
-- Note: Staff do NOT moderate DMs or in-game chat; report those to Discord/Roblox directly.
-
-## [STAFF DIRECTORY & DEPARTMENTS]
-- Leadership: Yenn (Owner), Eksodia (Community Manager), Luke & Harry (Directors).
-- Head of Staff: McKenna (Support), Charmscoven (Engagement).
-- Mods: Maximus (Support), Husky (Engagement).
-- Engagement Dept: Handles activity, events, giveaways, tournaments, and media.
-- Support Dept: Handles Appeal Center and tickets.
-
-## [EVENTS & GIVEAWAYS]
-- Hosting: Must seek HR approval. Max 2 events per day. 3-hour cooldown between events.
-- Pings: @Event ping max 2 times per event.
-- Giveaways: Staff cannot join. Some have message count requirements.
-
 ## [FAQ & TOOLS]
 - Check Message/Page Count: Magnifying glass (top right) > "from: [your name]".
 - Find Discord ID: Settings > Advanced > Developer Mode ON. Right-click user > Copy ID.
 - Check Timezone: Search Google for "[City] [Country] timezone". Required for applications.
 - Punishments: "Why was I warned?" -> Open a ticket in Appeal Center.
 
-## [STAFF PROTOCOL (INTERNAL)]
-- Behavior: Must be professional, impartial, and approachable.
-- Confidentiality: Leaking staff-only info results in immediate termination.
-- Teamwork: Collaboration is required. Inactivity leads to strikes.
 
