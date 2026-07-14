@@ -137,38 +137,52 @@ async def on_message(message):
             # --- CONTEXT AWARENESS ---
             history_buffer = []
             async for msg in message.channel.history(limit=5):
+                # Avoid feeding commands or empty text into the chat history
+                if msg.content.startswith("!"):
+                    continue
                 clean_content = msg.clean_content 
                 history_buffer.append(f"{msg.author.name}: {clean_content}")
             
             history_buffer.reverse()
             conversation_text = "\n".join(history_buffer)
 
-            # --- PROMPT ---
-            prompt = (
-            f"You are a helpful assistant for a Discord server. "
-            f"Use the 'Knowledge Base' below to answer the user's question.\n\n"
-            
-            f"INSTRUCTIONS FOR AI:\n"
-            f"1. **Match Concepts, Not Just Words:** If the user asks about a specific example (e.g., 'YouTube') and the rules mention a general category (e.g., 'No Advertising'), you MUST apply the rule and answer.\n"
-            f"2. **Be Direct:** Answer clearly based on the text provided.\n"
-            f"3. **When to use SILENCE:** If the answer to the user's question is NOT found in the Knowledge Base provided below, you MUST reply with exactly the word 'SILENCE'. Do not guess or make up answers.\n"
-            f"4. Do NOT use markdown headers like #.\n\n"
-
-            f"{knowledge_base}\n\n"
-            f"--- CONVERSATION HISTORY ---\n{conversation_text}\n\n"
-            f"User Question: {message.content}"
+            # --- SYSTEM INSTRUCTION & CONFIGURATION ---
+            # System instructions now explicitly forbid direct copy-pasting.
+            system_instruction = (
+                "You are a helpful and polite Discord server support assistant.\n\n"
+                "CRITICAL RULES:\n"
+                "1. Answer user queries strictly using the provided Knowledge Base.\n"
+                "2. DO NOT copy and paste raw paragraphs, bullet points, or list structures directly from the Knowledge Base. "
+                "Instead, summarize, rephrase, and synthesize the relevant facts to construct a natural, conversational response that directly addresses the user's specific question.\n"
+                "3. Match concepts, not just words. If a user asks about a specific action, apply the general guidelines present in the knowledge base.\n"
+                "4. Do not use Markdown headers (like #, ##, or ###).\n"
+                "5. STRICT SILENCE RULE: If the answer to the user's question cannot be found or reasonably inferred from the Knowledge Base, you MUST reply with exactly the single word 'SILENCE'. Do not explain why, do not apologize, and do not provide outside information."
             )
 
+            # --- USER PROMPT ---
+            prompt = (
+                f"--- KNOWLEDGE BASE ---\n{knowledge_base}\n\n"
+                f"--- CONVERSATION HISTORY ---\n{conversation_text}\n\n"
+                f"User Question: {message.content}"
+            )
+
+            # Keep temperature relatively low to avoid hallucinating facts, while still allowing the language structure to be conversational.
             response = client_genai.models.generate_content(
                 model=MODEL_NAME,
-                contents=prompt
+                contents=prompt,
+                config=genai.types.GenerateContentConfig(
+                    system_instruction=system_instruction,
+                    temperature=0.2
+                )
             )
             
             if response.text:
                 response_text = response.text.strip()
                 
-                # --- SILENCE CHECK (MISSING KNOWLEDGE LOGIC) ---
-                if response_text == "SILENCE":
+                # --- SILENCE CHECK (Robust evaluation) ---
+                normalized_text = response_text.replace("`", "").replace('"', '').replace("'", "").strip().upper()
+                
+                if normalized_text == "SILENCE" or not response_text:
                     print("Answer not found. Forwarding to missing answers channel.")
                     
                     # Keep logging to file as backup
